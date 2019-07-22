@@ -14,20 +14,61 @@
 
 <body>
 	<?php require_once 'process.php';?>
-	<div class="row justify-content-center">
-		<form action="process.php" method="post">
-			<div class="form-group">
-				<label for="name">Name</label>
-				<input type="text" name="name" class="form-control" placeholder="Enter your name">
-			</div>
-			<div class="form-group">
-				<label for="location">Location</label>
-				<input type="text" name="location" class="form-control" placeholder="Enter your location">
-			</div>
-			<div class="form-group">
-				<button type="submit" class="btn btn-primary" name="save">Save</button>
-			</div>
-		</form>
+	<div class="container">
+		<?php
+    $mysqli = new mysqli('localhost', 'emmy', '@Emmanuel2295', 'crud') or die(mysqli_error($mysqli));
+    $result = $mysqli->query("SELECT * FROM data") or die($mysqli->error);
+     
+    //pre_r($result);
+  ?>
+		<div class="row justify-content-center">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Location</th>
+						<th colspan="2">Action</th>
+					</tr>
+				</thead>
+				<?php
+        while($row = $result->fetch_assoc()):
+      ?>
+				<tr>
+					<td>
+						<?php echo $row['name']; ?>
+					</td>
+					<td>
+						<?php echo $row['location']; ?>
+					</td>
+					<td></td>
+				</tr>
+				<?php endwhile;?>
+			</table>
+		</div>
+		<?php
+
+    function pre_r($array){
+        echo '<pre>';
+        print_r($array);
+        echo '<pre>';
+    }
+  ?>
+
+		<div class="row justify-content-center">
+			<form action="process.php" method="post">
+				<div class="form-group">
+					<label for="name">Name</label>
+					<input type="text" name="name" class="form-control" placeholder="Enter your name">
+				</div>
+				<div class="form-group">
+					<label for="location">Location</label>
+					<input type="text" name="location" class="form-control" placeholder="Enter your location">
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary" name="save">Save</button>
+				</div>
+			</form>
+		</div>
 	</div>
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
