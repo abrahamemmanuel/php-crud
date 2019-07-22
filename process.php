@@ -16,6 +16,13 @@ if(isset($_POST['save'])){
 
 }
 
+// Check if the delete button has been clicked
+if(isset($_GET['delete'])){
+  $id = $_GET['delete'];
+
+  // Delete record from database
+  $mysqli->query("DELETE From data WHERE id=$id") or die($mysqli->error);
+}
 
 
 

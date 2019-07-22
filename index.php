@@ -42,7 +42,7 @@
 					</td>
 					<td>
 						<a href="index.php?edit=<?php echo $row['id']; ?>" class="btn btn-info">Edit</a>
-						<a href="process.php?delete=<?php echo $row['id'];?>" class="btn btn-danger">Danger</a>
+						<a href="process.php?delete=<?php echo $row['id'];?>" class="btn btn-danger">Delete</a>
 					</td>
 				</tr>
 				<?php endwhile;?>
