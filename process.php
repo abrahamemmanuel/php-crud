@@ -13,6 +13,9 @@ $update = false;
 // Set default value for id variable to 0
 $id = 0;
 
+// Set the value of update to false as default
+// $update = false;
+
 // Connect to database
 $mysqli = new mysqli('localhost', 'emmy', '@Emmanuel2295', 'crud') or die(mysqli_error($mysqli));
 
@@ -57,14 +60,14 @@ if(isset($_GET['delete'])){
 // Check if the edit variable has been set
 if(isset($_GET['edit'])){
   $id = $_GET['edit'];
+  $update = true;
+
   $result = $mysqli->query("SELECT * FROM data WHERE id=$id") or die($mysqli->error());
   // Check if record exist
   if(mysqli_num_rows($result)==1){
     $row = $result->fetch_array();
     $name = $row['name'];
     $location = $row['location'];
-      // set the value of update to true
-  $update = true;
   }
 }
 
@@ -85,3 +88,5 @@ if(isset($_POST['update'])){
   // Redirect users back to index.php
   header("location: index.php");
 }
+
+?>
