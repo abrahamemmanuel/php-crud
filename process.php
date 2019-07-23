@@ -7,6 +7,12 @@ session_start();
 $name = '';
 $location = '';
 
+// Set the value of update to false as default
+$update = false;
+
+// Set default value for id variable to 0
+$id = 0;
+
 // Connect to database
 $mysqli = new mysqli('localhost', 'emmy', '@Emmanuel2295', 'crud') or die(mysqli_error($mysqli));
 
@@ -47,8 +53,8 @@ if(isset($_GET['delete'])){
 
 
 
-// EDIT RECORD FROM IN DATABASE
-// Check if the edit variable has been clicked
+// FETCH RECORD FROM DATABASE
+// Check if the edit variable has been set
 if(isset($_GET['edit'])){
   $id = $_GET['edit'];
   $result = $mysqli->query("SELECT * FROM data WHERE id=$id") or die($mysqli->error());
@@ -57,5 +63,25 @@ if(isset($_GET['edit'])){
     $row = $result->fetch_array();
     $name = $row['name'];
     $location = $row['location'];
+      // set the value of update to true
+  $update = true;
   }
+}
+
+// UPDATE RRECORDS IN DATATBASE
+// check if the update button has been clicked
+if(isset($_POST['update'])){
+  $id = $_POST['id'];
+  $name = $_POST['name'];
+  $location = $_POST['location'];
+
+  $mysqli->query("UPDATE data SET name='$name', location='$location' WHERE id=$id") or die($mysqli->error());
+
+  // Set session message and type for deleting records
+  $_SESSION['message'] = "Record has been updated!";
+  $_SESSION['msg_type'] = "warning";
+  $update = false;
+
+  // Redirect users back to index.php
+  header("location: index.php");
 }

@@ -69,6 +69,7 @@
 
     <div class="row justify-content-center">
       <form action="process.php" method="post">
+        <input type="hidden" name="id" value="<?php echo $id; ?>">
         <div class="form-group">
           <label for="name">Name</label>
           <input type="text" name="name" class="form-control" value="<?php echo $name;?>" placeholder="Enter your name">
@@ -79,12 +80,15 @@
             placeholder=" Enter your location ">
         </div>
         <div class="form-group ">
+          <?php if($update == true):?>
+          <button type="submit " class="btn btn-info " name="update">Update</button>
+          <?php else: ?>
           <button type="submit " class="btn btn-primary " name="save ">Save</button>
+          <?php endif; ?>
         </div>
       </form>
     </div>
-  </div>
-  <!-- Optional JavaScript -->
+  </div> <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js "
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo " crossorigin="anonymous ">
