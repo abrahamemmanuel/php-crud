@@ -3,6 +3,10 @@
 // start session
 session_start();
 
+// Set name and loaction to empty strings
+$name = '';
+$location = '';
+
 // Connect to database
 $mysqli = new mysqli('localhost', 'emmy', '@Emmanuel2295', 'crud') or die(mysqli_error($mysqli));
 
@@ -13,11 +17,10 @@ if(isset($_POST['save'])){
   $location = $_POST['location'];
 
 
-  // Insert record into databse
+  // INSERT RECORD INTO DATABASE
   $mysqli->query("INSERT INTO data (name, location) VALUES('$name', '$location')") or die($mysqli->error);
 
   // Set session message and type for saving records
-  // Set session message and type for deleting records
   $_SESSION['message'] = "Record has been saved!";
   $_SESSION['msg_type'] = "success";
 
@@ -25,6 +28,8 @@ if(isset($_POST['save'])){
   header("location: index.php");
 }
 
+
+// DELETE RECORD FROM DATABASE
 // Check if the delete button has been clicked
 if(isset($_GET['delete'])){
   $id = $_GET['delete'];
@@ -42,17 +47,15 @@ if(isset($_GET['delete'])){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// EDIT RECORD FROM IN DATABASE
+// Check if the edit variable has been clicked
+if(isset($_GET['edit'])){
+  $id = $_GET['edit'];
+  $result = $mysqli->query("SELECT * FROM data WHERE id=$id") or die($mysqli->error());
+  // Check if record exist
+  if(mysqli_num_rows($result)==1){
+    $row = $result->fetch_array();
+    $name = $row['name'];
+    $location = $row['location'];
+  }
+}
